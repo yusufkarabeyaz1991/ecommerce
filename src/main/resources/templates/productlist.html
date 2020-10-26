@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        }
+    </style>
+    <title>Product List</title>
+</head>
+<body>
+<h1>Product List</h1>
+<div align="center">
+    <button id="addProductBtn">Add Product</button>
+</div>
+<div id="addProductModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form action="addProduct">
+            <table style="padding: 5px; text-align: center;" align="center">
+                <tr>
+                    <td>Category :</td>
+                    <td><input type="text" name="category" placeholder="Category" /></td>
+                    <td>Title :</td>
+                    <td><input type="text" name="title" placeholder="Title" /></td>
+                    <td>Price :</td>
+                    <td><input type="text" name="price" placeholder="Price" /></td>
+                </tr>
+            </table>
+            <center>
+                <input type="submit" value="Add Product" />
+            </center>
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+    var searchModel = document.getElementById('addProductModal');
+    var btn1 = document.getElementById("addProductBtn");
+    var span1 = document.getElementsByClassName("close")[0];
+    btn1.onclick = function() {
+        searchModel.style.display = "block";
+    }
+    span1.onclick = function() {
+        searchModel.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == searchModel) {
+            searchModel.style.display = "none";
+        }
+    }
+</script>
+
+<table>
+    <tr th:each="element : ${items}">
+        <td th:text="${element.key}">keyvalue</td>
+        <table>
+            <tr th:each="anews : ${element.value}">
+                <td th:text="${anews.title}">Some name</td>
+                <td th:text="${anews.price}">Some name</td>
+            </tr>
+        </table>
+    </tr>
+</table>
+</body>
+</html>
